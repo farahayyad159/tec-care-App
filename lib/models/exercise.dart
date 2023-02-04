@@ -3,6 +3,7 @@ class Exercise{
   late String description;
   late String name;
   late String urlVideo;
+  late String urlImage;
   late String muscleName;
 
   Exercise();
@@ -11,6 +12,7 @@ class Exercise{
     description = documentMap['description'];
     name = documentMap['name'];
     urlVideo = documentMap['urlVideo'];
+    urlImage = documentMap['urlImage'];
     muscleName = documentMap['muscleName'];
   }
   Map<String, dynamic> toMap(){
@@ -18,6 +20,7 @@ class Exercise{
     map['description'] = description;
     map['name'] = name;
     map['urlVideo'] = urlVideo;
+    map['urlImage'] = urlImage;
     map['muscleName'] = muscleName;
     return map;
   }

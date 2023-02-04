@@ -1,15 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:grad_project/controllers/fb_auth_controller.dart';
+import 'package:grad_project/controllers/fb_firestore_controller.dart';
 import 'package:grad_project/helpers/helpers.dart';
 import 'package:grad_project/models/firebase_response.dart';
+import 'package:grad_project/screens/app/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({required this.visible, Key? key}) : super(key: key);
+  LoginScreen({required this.isUser, Key? key}) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
-  late bool visible;
+  late bool isUser;
 }
 
 class _LoginScreenState extends State<LoginScreen> with Helpers {
@@ -152,14 +155,14 @@ class _LoginScreenState extends State<LoginScreen> with Helpers {
               ),
             ),
             Visibility(
-              visible: widget.visible,
+              visible: widget.isUser,
               child: const SizedBox(
                 // width: 20,
                 height: 32,
               ),
             ),
             Visibility(
-              visible: widget.visible,
+              visible: widget.isUser,
               child: const Center(
                 child: Text(
                   "Or",
@@ -171,7 +174,7 @@ class _LoginScreenState extends State<LoginScreen> with Helpers {
               ),
             ),
             Visibility(
-              visible: widget.visible,
+              visible: widget.isUser,
               child: GestureDetector(
                 onTap: () {
                   Navigator.pushReplacementNamed(context, '/register_screen');
@@ -213,7 +216,7 @@ class _LoginScreenState extends State<LoginScreen> with Helpers {
               height: 130,
             ),
             Visibility(
-              visible: widget.visible,
+              visible: widget.isUser,
               child: Center(
                 child: RichText(
                   textAlign: TextAlign.center,
@@ -247,12 +250,21 @@ class _LoginScreenState extends State<LoginScreen> with Helpers {
   }
 
   Future<void> login() async {
+    print("Here ======>");
     FirebaseResponse response = await FbAuthController().signIn(
         email: _emailTextController.text,
         password: _passwordTextController.text);
+    print("Herrrre ---->");
     print(response.message);
     if (response.success) {
-      Navigator.pushReplacementNamed(context, '/home_screen');
+      bool _isDoctor = await FbFireStoreController().doesDoctorExist(_emailTextController.text);
+      print("isDoctor====>" + _isDoctor.toString());
+      print(response.message);
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => HomeScreen(user: FbAuthController().user, isDoctor: _isDoctor),
+        ),
+      );
       showSnackBar(context: context, message: response.message);
       // Navigator.pop(context);
     } else {
@@ -262,6 +274,8 @@ class _LoginScreenState extends State<LoginScreen> with Helpers {
           error: !response.success);
     }
   }
+
+
 
   bool checkData() {
     if (_emailTextController.text.isNotEmpty &&

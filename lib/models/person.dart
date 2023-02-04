@@ -2,8 +2,8 @@ class Person{
   late String id;
   late String name;
   late String email;
-  late int height;
-  late int weight;
+  late String height;
+  late String weight;
   // late DateTime dateOfBirth ;
 
   Person();

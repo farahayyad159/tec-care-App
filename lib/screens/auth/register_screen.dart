@@ -152,7 +152,6 @@ class _RegisterScreenState extends State<RegisterScreen> with Helpers {
               margin: const EdgeInsets.only(top: 20, left: 60),
               width: 300,
               child: TextField(
-                keyboardType: TextInputType.number,
                 controller: _heightTextController,
                 decoration: InputDecoration(
                   prefixIcon: const Icon(Icons.height),
@@ -179,10 +178,9 @@ class _RegisterScreenState extends State<RegisterScreen> with Helpers {
               margin: const EdgeInsets.only(top: 20, left: 60),
               width: 300,
               child: TextField(
-                keyboardType: TextInputType.number,
                 controller: _weightTextController,
                 decoration: InputDecoration(
-                  errorText: _passwordError,
+                  // errorText: _passwordError,
                   prefixIcon: const Icon(Icons.monitor_weight_outlined),
                   hintText: 'Weight',
                   enabledBorder: OutlineInputBorder(
@@ -349,8 +347,8 @@ class _RegisterScreenState extends State<RegisterScreen> with Helpers {
     Person person = Person();
       person.id = response.credential!.user!.uid;
       person.name = _nameTextController.text;
-      person.height = int.parse(_heightTextController.text);
-      person.weight = int.parse(_weightTextController.text);
+      person.height = _heightTextController.text;
+      person.weight = _weightTextController.text;
       person.email = _emailTextController.text;
     // person.dateOfBirth = DateTime.parse(_dateTextController.text);
     Future<bool> fireStoreResult = FbFireStoreController()

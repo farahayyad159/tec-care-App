@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:comment_box/comment/comment.dart';
 import 'package:flutter/material.dart';
 import 'package:grad_project/controllers/fb_auth_controller.dart';
 import 'package:grad_project/controllers/fb_firestore_controller.dart';
 import 'package:grad_project/models/exercise.dart';
+import 'package:grad_project/screens/app/home_screen.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class ExerciseScreen extends StatefulWidget {
@@ -38,6 +40,9 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
     _youtubePlayerController.dispose();
     super.dispose();
   }
+
+  final formKey = GlobalKey<FormState>();
+  final TextEditingController commentController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +104,11 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                 ),
                 ListTile(
                   onTap: () {
-                    Navigator.pushNamed(context, '/home_screen');
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => HomeScreen(user: null),
+                      ),
+                    );
                   },
                   leading: const Icon(
                     Icons.home,
@@ -212,27 +221,6 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                   ),
                 ),
               ),
-              Center(
-                child: Container(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 120, vertical: 35),
-                  width: 120,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: const Color(0xff415380),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Center(
-                    child: Text(
-                      _counter.toString(),
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 25,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 // mainAxisSize: MainAxisSize.max,
@@ -240,53 +228,11 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                   GestureDetector(
                     onTap: () {
                       setState(() {
-                        ++_counter;
-                      });
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 0, vertical: 0),
-                      width: 140,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: const Color(0xff415380),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: ListView(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        children: const [
-                          Center(
-                            child: Icon(
-                              Icons.add,
-                              color: Colors.white,
-                              size: 25,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Center(
-                            child: Text(
-                              'Add round',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 20),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
                         _counter = 0;
                       });
                     },
                     child: Container(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 0),
-                      width: 120,
+                      width: 100,
                       height: 50,
                       decoration: BoxDecoration(
                         color: const Color(0xff415380),
@@ -303,31 +249,82 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                             ),
                           ),
                           SizedBox(
-                            width: 10,
+                            width: 8,
                           ),
                           Text(
                             'Reset',
                             style: TextStyle(color: Colors.white, fontSize: 20),
-                          )
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Center(
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 25),
+                      width: 100,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: const Color(0xff415380),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                        child: Text(
+                          _counter.toString(),
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 25,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        ++_counter;
+                      });
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 0, vertical: 0),
+                      width: 100,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: const Color(0xff415380),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: ListView(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        children: const [
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Center(
+                            child: Icon(
+                              Icons.add,
+                              color: Colors.white,
+                              size: 25,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 12,
+                          ),
+                          Center(
+                            child: Text(
+                              'Plus',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                            ),
+                          ),
                         ],
                       ),
                     ),
                   ),
                 ],
               ),
-              // Container(
-              //   alignment: Alignment.center,
-              //   width: 40,
-              //   height: 40,
-              //   child: Text(
-              //     _counter.toString(),
-              //     style: const TextStyle(
-              //       color: Colors.white,
-              //       // fontFamily: 'Changa',
-              //     ),
-              //   ),
-              //   color: Colors.tealAccent,
-              // ),
             ],
           ),
         );

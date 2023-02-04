@@ -78,4 +78,5 @@ class FbAuthController with Helpers {
   User get user => _firebaseAuth.currentUser!;
 
   bool get loggedIn => _firebaseAuth.currentUser != null;
+
 }

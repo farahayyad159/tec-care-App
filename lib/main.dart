@@ -1,3 +1,4 @@
+import 'package:comment_box/comment/test.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:grad_project/models/exercise.dart';
@@ -35,12 +36,12 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/register_screen': (context) => const RegisterScreen(),
-        '/login_screen': (context) => LoginScreen(visible: true),
+        '/login_screen': (context) => LoginScreen(isUser: true),
         '/splash_screen': (context) => const SplashScreen(),
         '/forget_password_screen': (context) => const ForgetPasswordScreen(),
-        '/home_screen': (context) => const HomeScreen(),
+        // '/home_screen': (context) => HomeScreen(person: ,isDoctor: false,),
         '/references_screen': (context) => const ReferencesScreen(),
-        '/profile_screen': (context) => const ProfileScreen(),
+        // '/profile_screen': (context) => ProfileScreen(),
         '/contact_screen': (context) => const ContactScreen(),
         '/guard_screen': (context) => const GuardScreen(),
         // '/exercise_screen': (context) => const ExerciseScreen(),

@@ -42,7 +42,7 @@ class _GuardScreenState extends State<GuardScreen> {
                   await Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
                       builder: (context) => LoginScreen(
-                        visible: true,
+                        isUser: true,
                       ),
                     ),
                   );
@@ -80,7 +80,7 @@ class _GuardScreenState extends State<GuardScreen> {
                   await Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
                       builder: (context) => LoginScreen(
-                        visible: false,
+                        isUser: false,
                       ),
                     ),
                   );

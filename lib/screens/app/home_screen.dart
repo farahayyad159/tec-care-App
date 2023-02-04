@@ -2,17 +2,23 @@ import 'dart:ffi';
 import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:grad_project/controllers/fb_auth_controller.dart';
 import 'package:grad_project/controllers/fb_firestore_controller.dart';
 import 'package:grad_project/models/exercise.dart';
+import 'package:grad_project/models/person.dart';
 import 'package:grad_project/screens/app/exercise_screen.dart';
+import 'package:grad_project/screens/app/profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  HomeScreen({required this.user, this.isDoctor = false, Key? key})
+      : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
+  bool isDoctor;
+  User? user;
 }
 
 class _HomeScreenState extends State<HomeScreen> {
@@ -96,7 +102,11 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ListTile(
               onTap: () {
-                Navigator.pushNamed(context, '/profile_screen');
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ProfileScreen(user: widget.user!),
+                  ),
+                );
               },
               leading: const Icon(
                 Icons.person,
@@ -253,7 +263,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           Expanded(
             child: StreamBuilder<QuerySnapshot<Exercise>>(
-              stream: FbFireStoreController().read(),
+              stream: FbFireStoreController().readExercises(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(
@@ -263,13 +273,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   return ListView.builder(
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (context, index) {
-                      final muscleName = snapshot.data!.docs[index].data().muscleName;
+                      final muscleName =
+                          snapshot.data!.docs[index].data().muscleName;
                       if (selectedType == '' || selectedType == null) {
                         return GestureDetector(
                           onTap: () async {
                             await Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
-                                builder: (context) => ExerciseScreen(exercise: snapshot.data!.docs[index].data()),
+                                builder: (context) => ExerciseScreen(
+                                    exercise:
+                                        snapshot.data!.docs[index].data()),
                               ),
                             );
                           },
@@ -289,8 +302,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                   borderRadius: const BorderRadius.only(
                                       bottomLeft: Radius.circular(20),
                                       topLeft: Radius.circular(20)),
-                                  child: Image.asset(
-                                    'images/exercise1.jpg',
+                                  child: Image.network(
+                                    // 'https://media.istockphoto.com/id/964071376/photo/cross-training-and-weight-lifting.jpg?s=612x612&w=0&k=20&c=aAMOyMKxF_-DnJyDAdVckhP1EKa-Fa3szleGEhEAuec=',
+                                    // 'images/exercise1.jpg',
+                                    snapshot.data!.docs[index].data().urlImage,
                                     fit: BoxFit.cover,
                                     width: 150,
                                     height: 150,
@@ -342,14 +357,17 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         );
                       }
-                      else if (selectedType != null && muscleName
+                      else if (selectedType != null &&
+                          muscleName
                               .toLowerCase()
                               .contains(selectedType!.toLowerCase())) {
                         return GestureDetector(
                           onTap: () async {
                             await Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
-                                builder: (context) => ExerciseScreen(exercise: snapshot.data!.docs[index].data()),
+                                builder: (context) => ExerciseScreen(
+                                    exercise:
+                                        snapshot.data!.docs[index].data()),
                               ),
                             );
                           },

@@ -39,6 +39,7 @@ dependencies:
   cloud_firestore: ^4.3.1
   youtube_player_flutter: ^8.1.2
   dob_input_field: ^2.0.0
+  comment_box: ^0.0.18
 
 dev_dependencies:
   flutter_test:
