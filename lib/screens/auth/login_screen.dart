@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:grad_project/controllers/fb_auth_controller.dart';
@@ -16,6 +17,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> with Helpers {
+  bool _isSigningIn = false;
+
   String? _emailError;
   String? _passwordError;
   late TextEditingController _emailTextController;
@@ -176,7 +179,24 @@ class _LoginScreenState extends State<LoginScreen> with Helpers {
               visible: widget.isUser,
               child: GestureDetector(
                 onTap: () {
-                  Navigator.pushReplacementNamed(context, '/register_screen');
+                  // setState(() {
+                  //   _isSigningIn = true;
+                  // });
+                  //
+                  // User? user = await
+                  // FbAuthController.signInWithGoogle(context: context);
+                  //
+                  // setState(() {
+                  //   _isSigningIn = false;
+                  // });
+                  //
+                  // if (user != null) {
+                  //   Navigator.of(context).pushReplacement(
+                  //     MaterialPageRoute(
+                  //       builder: (context) => HomeScreen(user: user),
+                  //     ),
+                  //   );
+                  // }
                 },
                 child: Container(
                   margin: const EdgeInsets.only(top: 39, left: 60),
@@ -197,7 +217,7 @@ class _LoginScreenState extends State<LoginScreen> with Helpers {
                         width: 20,
                       ),
                       const SizedBox(
-                        width: 45,
+                        width: 35,
                       ),
                       const Text(
                         'Login with Google',

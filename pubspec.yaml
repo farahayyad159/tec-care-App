@@ -40,6 +40,7 @@ dependencies:
   youtube_player_flutter: ^8.1.2
   dob_input_field: ^2.0.0
   comment_box: ^0.0.18
+  google_sign_in: ^5.4.4
 
 dev_dependencies:
   flutter_test:

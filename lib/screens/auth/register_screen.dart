@@ -20,12 +20,17 @@ class _RegisterScreenState extends State<RegisterScreen> with Helpers {
   String? _emailError;
   String? _passwordError;
   String? _nameError;
+  String? _heightError;
+  String? _weightError;
+  String? _ageError;
   late TextEditingController _emailTextController;
   late TextEditingController _passwordTextController;
   late TextEditingController _nameTextController;
-  late TextEditingController _dateTextController;
+
+  // late TextEditingController _dateTextController;
   late TextEditingController _heightTextController;
   late TextEditingController _weightTextController;
+  late TextEditingController _ageTextController;
 
   @override
   void initState() {
@@ -33,9 +38,10 @@ class _RegisterScreenState extends State<RegisterScreen> with Helpers {
     _emailTextController = TextEditingController();
     _passwordTextController = TextEditingController();
     _nameTextController = TextEditingController();
-    _dateTextController = TextEditingController();
+    // _dateTextController = TextEditingController();
     _heightTextController = TextEditingController();
     _weightTextController = TextEditingController();
+    _ageTextController = TextEditingController();
     super.initState();
   }
 
@@ -45,9 +51,10 @@ class _RegisterScreenState extends State<RegisterScreen> with Helpers {
     _emailTextController.dispose();
     _passwordTextController.dispose();
     _nameTextController.dispose();
-    _dateTextController.dispose();
+    // _dateTextController.dispose();
     _heightTextController.dispose();
     _weightTextController.dispose();
+    _ageTextController.dispose();
     super.dispose();
   }
 
@@ -152,10 +159,38 @@ class _RegisterScreenState extends State<RegisterScreen> with Helpers {
               margin: const EdgeInsets.only(top: 20, left: 60),
               width: 300,
               child: TextField(
+                controller: _ageTextController,
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.date_range),
+                  hintText: 'Age',
+                  errorText: _ageError,
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: const BorderSide(
+                      color: Colors.red,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: const BorderSide(
+                      color: Colors.blue,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 20, left: 60),
+              width: 300,
+              child: TextField(
                 controller: _heightTextController,
                 decoration: InputDecoration(
                   prefixIcon: const Icon(Icons.height),
                   hintText: 'Height',
+                  errorText: _heightError,
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
@@ -180,7 +215,7 @@ class _RegisterScreenState extends State<RegisterScreen> with Helpers {
               child: TextField(
                 controller: _weightTextController,
                 decoration: InputDecoration(
-                  // errorText: _passwordError,
+                  errorText: _weightError,
                   prefixIcon: const Icon(Icons.monitor_weight_outlined),
                   hintText: 'Weight',
                   enabledBorder: OutlineInputBorder(
@@ -276,50 +311,6 @@ class _RegisterScreenState extends State<RegisterScreen> with Helpers {
                 ),
               ),
             ),
-            const SizedBox(
-              // width: 20,
-              height: 32,
-            ),
-            const Center(
-              child: Text(
-                "Or",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 39, left: 60),
-              width: 300,
-              height: 53,
-              padding: const EdgeInsets.only(
-                left: 15,
-              ),
-              decoration: BoxDecoration(
-                color: const Color(0xff415380),
-                borderRadius: BorderRadius.circular(3),
-              ),
-              child: Row(
-                children: [
-                  Image.asset(
-                    "images/google.png",
-                    height: 20,
-                    width: 20,
-                  ),
-                  const SizedBox(
-                    width: 30,
-                  ),
-                  const Text(
-                    'Sign up with Google',
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
-            ),
             // Row(
             //   children: [
             //     Text('Do you have an account?'),
@@ -345,11 +336,12 @@ class _RegisterScreenState extends State<RegisterScreen> with Helpers {
         password: _passwordTextController.text,
         name: _nameTextController.text);
     Person person = Person();
-      person.id = response.credential!.user!.uid;
-      person.name = _nameTextController.text;
-      person.height = _heightTextController.text;
-      person.weight = _weightTextController.text;
-      person.email = _emailTextController.text;
+    person.id = response.credential!.user!.uid;
+    person.name = _nameTextController.text;
+    person.height = int.parse(_heightTextController.text);
+    person.weight = int.parse(_weightTextController.text);
+    person.email = _emailTextController.text;
+    person.age = int.parse(_ageTextController.text);
     // person.dateOfBirth = DateTime.parse(_dateTextController.text);
     Future<bool> fireStoreResult = FbFireStoreController()
         .createUser(person)
@@ -371,7 +363,10 @@ class _RegisterScreenState extends State<RegisterScreen> with Helpers {
   bool checkData() {
     if (_emailTextController.text.isNotEmpty &&
         _passwordTextController.text.isNotEmpty &&
-        _nameTextController.text.isNotEmpty) {
+        _nameTextController.text.isNotEmpty &&
+        _heightTextController.text.isNotEmpty &&
+        _weightTextController.text.isNotEmpty &&
+        _ageTextController.text.isNotEmpty) {
       controlError();
       return true;
     }
@@ -390,10 +385,19 @@ class _RegisterScreenState extends State<RegisterScreen> with Helpers {
           ? 'Enter password, Please!'
           : null;
       _nameError =
-      _nameTextController.text.isEmpty ? 'Enter username, Please!' : null;
+          _nameTextController.text.isEmpty ? 'Enter username, Please!' : null;
+      _ageError =
+          _ageTextController.text.isEmpty ? 'Enter your age, please!' : null;
+      _weightError = _weightTextController.text.isEmpty
+          ? 'Enter your weight, please!'
+          : null;
+      _heightError = _heightTextController.text.isEmpty
+          ? 'Enter your height, please!'
+          : null;
     });
   }
-  void clearData(){
+
+  void clearData() {
     _emailTextController.text = '';
     _nameTextController.text = '';
     _passwordTextController.text = '';

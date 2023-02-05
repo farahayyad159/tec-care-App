@@ -3,43 +3,64 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:grad_project/controllers/fb_auth_controller.dart';
 import 'package:grad_project/controllers/fb_firestore_controller.dart';
+import 'package:grad_project/helpers/helpers.dart';
 import 'package:grad_project/models/person.dart';
 
-class ProfileScreen extends StatefulWidget {
-  ProfileScreen({Key? key}) : super(key: key);
+class EditProfileScreen extends StatefulWidget {
+  EditProfileScreen({Key? key}) : super(key: key);
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
+  State<EditProfileScreen> createState() => _EditProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+
+class _EditProfileScreenState extends State<EditProfileScreen> with Helpers{
+  late TextEditingController _nameTextController;
+  late TextEditingController _weightTextController;
+  late TextEditingController _heightTextController;
+  late TextEditingController _ageTextController;
+
   String nameText = '';
   String weightText = '';
   String heightText = '';
   String ageText = '';
 
+  // late TextEditingController _nameTextController;
+
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _getdata();
+    // _nameTextController.text = nameText;
+    _nameTextController = TextEditingController();
+    _heightTextController = TextEditingController();
+    _weightTextController = TextEditingController();
+    _ageTextController = TextEditingController();
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
+    _nameTextController.dispose();
+    _heightTextController.dispose();
+    _weightTextController.dispose();
+    _ageTextController.dispose();
     super.dispose();
   }
 
   User user = FbAuthController().user;
-
   @override
   Widget build(BuildContext context) {
+    _nameTextController.text = nameText;
+    _weightTextController.text = weightText;
+    _heightTextController.text = heightText;
+    _ageTextController.text = ageText;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
-          'My Profile',
+          'Edit Profile',
           style: TextStyle(
             color: Color(0xff415380),
           ),
@@ -56,8 +77,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () =>
-                Navigator.pushNamed(context, '/edit_profile_screen'),
+            onPressed: () {},
             icon: const Icon(
               Icons.edit,
               color: Color(0xff415380),
@@ -74,11 +94,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
               bottom: 20,
             ),
             child: TextField(
-              controller: TextEditingController(text: nameText),
+              controller: _nameTextController,
               style: const TextStyle(
                 color: Color(0XFF415380),
               ),
-              readOnly: true,
               decoration: InputDecoration(
                 // errorText: _emailError,
                 // hintText: _nameTextController.text,
@@ -88,6 +107,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     color: Colors.grey,
                   ),
                 ),
+                errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  borderSide: const BorderSide(
+                    color: Colors.red,
+                  ),
+                ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                   borderSide: const BorderSide(
@@ -100,11 +125,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Padding(
             padding: const EdgeInsets.only(left: 30, right: 30, bottom: 20),
             child: TextField(
-              controller: TextEditingController(text: ageText),
+              controller: _ageTextController,
               style: const TextStyle(
                 color: Color(0XFF415380),
               ),
-              readOnly: true,
               decoration: InputDecoration(
                 // errorText: _emailError,
                 // hintText: 'Height',
@@ -114,6 +138,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     color: Colors.grey,
                   ),
                 ),
+                errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  borderSide: const BorderSide(
+                    color: Colors.red,
+                  ),
+                ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                   borderSide: const BorderSide(
@@ -126,20 +156,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Padding(
             padding: const EdgeInsets.only(left: 30, right: 30, bottom: 20),
             child: TextField(
-              controller: TextEditingController(text: weightText),
+              controller: _weightTextController,
               style: const TextStyle(
                 color: Color(0XFF415380),
               ),
-              readOnly: true,
               decoration: InputDecoration(
                 // errorText: _emailError,
-                // hintText: _nameTextController.text,
+                // hintText: '_nameTextController.text!',
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                   borderSide: const BorderSide(
                     color: Colors.grey,
                   ),
                 ),
+                errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  borderSide: const BorderSide(
+                    color: Colors.red,
+                  ),
+                ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                   borderSide: const BorderSide(
@@ -152,11 +187,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Padding(
             padding: const EdgeInsets.only(left: 30, right: 30, bottom: 20),
             child: TextField(
-              controller: TextEditingController(text: heightText),
+              controller: _heightTextController,
               style: const TextStyle(
                 color: Color(0XFF415380),
               ),
-              readOnly: true,
               decoration: InputDecoration(
                 // errorText: _emailError,
                 // hintText: 'Height',
@@ -166,10 +200,44 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     color: Colors.grey,
                   ),
                 ),
+                errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  borderSide: const BorderSide(
+                    color: Colors.red,
+                  ),
+                ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                   borderSide: const BorderSide(
                     color: Colors.blue,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () async{
+              await performUpdate();
+            },
+            child: Center(
+              child: Container(
+                margin: const EdgeInsets.only(top: 39, left: 0),
+                width: 290,
+                height: 53,
+                padding: const EdgeInsets.only(
+                  left: 15,
+                ),
+                decoration: BoxDecoration(
+                  color: const Color(0xff415380),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: const Center(
+                  child: Text(
+                    'Update',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
@@ -308,5 +376,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ageText = userData.data()!['age'].toString();
       });
     });
+  }
+  Future<void> performUpdate() async{
+  Person person = Person();
+  person.id = user.uid;
+  person.email = user.email!;
+  person.name = _nameTextController.text;
+  person.weight = int.parse(_weightTextController.text);
+  person.height = int.parse(_heightTextController.text);
+  person.age = int.parse(_ageTextController.text);
+
+  bool fireStoreResult = await FbFireStoreController().updateUser(person);
+
+  String fireStoreResponse =  fireStoreResult.toString();
+  print (fireStoreResponse);
+  if (fireStoreResponse == 'true') {
+    showSnackBar(context: context, message: "User created successfully");
+    Navigator.pop(context);
+  }
+  else {
+    showSnackBar(
+        context: context,
+        message: "Update failed. Please, try again!",
+        error: true);
+  }
   }
 }

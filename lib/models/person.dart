@@ -2,8 +2,9 @@ class Person{
   late String id;
   late String name;
   late String email;
-  late String height;
-  late String weight;
+  late int height;
+  late int weight;
+  late int age;
   // late DateTime dateOfBirth ;
 
   Person();
@@ -13,6 +14,7 @@ class Person{
     email = documentMap['email'];
     height = documentMap['height'];
     weight = documentMap['weight'];
+    age = documentMap['age'];
     // dateOfBirth = documentMap['dateOfBirth'];
   }
   Map<String, dynamic> toMap(){
@@ -22,6 +24,7 @@ class Person{
     map['email'] = email;
     map['height'] = height;
     map['weight'] = weight;
+    map['age'] = age;
     // map['dateOfBirth'] = dateOfBirth;
     return map;
   }

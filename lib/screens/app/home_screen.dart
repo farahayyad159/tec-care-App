@@ -25,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   late TextEditingController _searchTextController;
   final List<String> _muscleName = <String>[
+    // 'Pick a body part',
     'back',
     'cardio',
     'chest',
@@ -104,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => ProfileScreen(user: widget.user!),
+                    builder: (context) => ProfileScreen(),
                   ),
                 );
               },
@@ -192,39 +193,21 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         // mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Container(
-          //   margin: const EdgeInsets.symmetric(horizontal: 20),
-          //   width: 400,
-          //   child: TextField(
-          //     controller: _searchTextController,
-          //     decoration: InputDecoration(
-          //       prefixIcon: const Icon(Icons.search),
-          //       hintText: 'Search',
-          //       enabledBorder: OutlineInputBorder(
-          //         borderRadius: BorderRadius.circular(5),
-          //         borderSide: const BorderSide(
-          //           color: Color(0XFF415380),
-          //         ),
-          //       ),
-          //       focusedBorder: OutlineInputBorder(
-          //         borderRadius: BorderRadius.circular(10),
-          //         borderSide: const BorderSide(
-          //           color: Color(0XFF415380),
-          //         ),
-          //       ),
-          //     ),
-          //     onChanged: (String value) {
-          //       setState(() {});
-          //     },
-          //   ),
-          // ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(
-                Icons.filter_alt_outlined,
-                color: Color(0XFF415380),
-                size: 22,
+              IconButton(
+                icon: const Icon(
+                  Icons.filter_alt_outlined,
+                  color: Color(0XFF415380),
+                  size: 22,
+                ),
+                onPressed: () {
+                  setState(() {
+                    selectedType = null;
+                  });
+                },
+                tooltip: "Clear filter",
               ),
               const SizedBox(
                 width: 20,
@@ -245,13 +228,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     )
                     .toList(),
                 onChanged: (selected) {
-                  setState(() {
-                    selectedType = selected;
-                  });
+                  setState(
+                    () {
+                      selectedType = selected;
+                    },
+                  );
+                  // print(selectedType.runtimeType);
                 },
                 value: selectedType,
                 hint: const Text(
                   'Pick a body part',
+                  // selectedType == 'None' ? 'Pick a body part' : selectedType!.toString()!,
                   style: TextStyle(
                     color: Color(0XFF415380),
                     fontSize: 20,
@@ -387,8 +374,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   borderRadius: const BorderRadius.only(
                                       bottomLeft: Radius.circular(20),
                                       topLeft: Radius.circular(20)),
-                                  child: Image.asset(
-                                    'images/exercise1.jpg',
+                                  child: Image.network(
+                                    snapshot.data!.docs[index].data().urlImage,
                                     fit: BoxFit.cover,
                                     width: 150,
                                     height: 150,
