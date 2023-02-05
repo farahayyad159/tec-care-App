@@ -129,7 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Color(0XFF415380),
               ),
               title: const Text(
-                'Contact a doctor',
+                'Doctors chat',
                 style: TextStyle(
                   fontSize: 14,
                   color: Colors.black,
@@ -281,16 +281,16 @@ class _HomeScreenState extends State<HomeScreen> {
                             await Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
                                 builder: (context) => ExerciseScreen(
-                                    exercise:
-                                        snapshot.data!.docs[index].data()),
+                                  exercise: snapshot.data!.docs[index].data(),
+                                ),
                               ),
                             );
                           },
                           child: Container(
                             margin: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 10),
+                                horizontal: 20, vertical: 8),
                             width: 380,
-                            height: 150,
+                            height: 140,
                             decoration: BoxDecoration(
                               color: Colors.grey.shade200,
                               borderRadius:
@@ -300,15 +300,16 @@ class _HomeScreenState extends State<HomeScreen> {
                               children: [
                                 ClipRRect(
                                   borderRadius: const BorderRadius.only(
-                                      bottomLeft: Radius.circular(20),
-                                      topLeft: Radius.circular(20)),
+                                    bottomLeft: Radius.circular(20),
+                                    topLeft: Radius.circular(20),
+                                  ),
                                   child: Image.network(
                                     // 'https://media.istockphoto.com/id/964071376/photo/cross-training-and-weight-lifting.jpg?s=612x612&w=0&k=20&c=aAMOyMKxF_-DnJyDAdVckhP1EKa-Fa3szleGEhEAuec=',
                                     // 'images/exercise1.jpg',
                                     snapshot.data!.docs[index].data().urlImage,
                                     fit: BoxFit.cover,
-                                    width: 150,
-                                    height: 150,
+                                    width: 140,
+                                    height: 140,
                                   ),
                                   clipBehavior: Clip.antiAlias,
                                 ),
@@ -321,7 +322,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.symmetric(
-                                            horizontal: 12.0, vertical: 0),
+                                            horizontal: 10),
                                         child: Text(
                                           snapshot.data!.docs[index]
                                               .data()
@@ -356,8 +357,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                         );
-                      }
-                      else if (selectedType != null &&
+                      } else if (selectedType != null &&
                           muscleName
                               .toLowerCase()
                               .contains(selectedType!.toLowerCase())) {

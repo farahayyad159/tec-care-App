@@ -157,7 +157,6 @@ class _LoginScreenState extends State<LoginScreen> with Helpers {
             Visibility(
               visible: widget.isUser,
               child: const SizedBox(
-                // width: 20,
                 height: 32,
               ),
             ),
@@ -250,16 +249,16 @@ class _LoginScreenState extends State<LoginScreen> with Helpers {
   }
 
   Future<void> login() async {
-    print("Here ======>");
+    // print("Here ======>");
     FirebaseResponse response = await FbAuthController().signIn(
         email: _emailTextController.text,
         password: _passwordTextController.text);
-    print("Herrrre ---->");
-    print(response.message);
+    // print("Herrrre ---->");
+    // print(response.message);
     if (response.success) {
       bool _isDoctor = await FbFireStoreController().doesDoctorExist(_emailTextController.text);
-      print("isDoctor====>" + _isDoctor.toString());
-      print(response.message);
+      // print("isDoctor====>" + _isDoctor.toString());
+      // print(response.message);
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) => HomeScreen(user: FbAuthController().user, isDoctor: _isDoctor),
