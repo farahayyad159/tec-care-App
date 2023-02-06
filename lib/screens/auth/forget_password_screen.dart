@@ -53,7 +53,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen>
               height: 20,
             ),
             const Padding(
-              padding: EdgeInsets.only(left: 60),
+              padding: EdgeInsets.only(left: 40),
               child: Text(
                 "Find your account",
                 style: TextStyle(
@@ -63,7 +63,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen>
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 10, left: 60),
+              margin: const EdgeInsets.only(top: 10, left: 40),
               width: 300,
               height: 53,
               child: const Text(
@@ -75,7 +75,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen>
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 20, left: 60, bottom: 20),
+              margin: const EdgeInsets.only(top: 20, left: 40, bottom: 20),
               width: 300,
               child: TextField(
                 controller: _emailTextController,
@@ -102,7 +102,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen>
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 20, left: 60),
+              margin: const EdgeInsets.only(top: 20, left: 40),
               width: 300,
               height: 53,
               child: ElevatedButton(
@@ -132,7 +132,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen>
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 20, left: 90),
+              margin: const EdgeInsets.only(top: 20, left: 65),
               width: 300,
               height: 53,
               child: Row(

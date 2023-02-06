@@ -64,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> with Helpers {
               height: 10,
             ),
             const Padding(
-              padding: EdgeInsets.only(left: 60),
+              padding: EdgeInsets.only(left: 40),
               child: Text(
                 "Login",
                 style: TextStyle(
@@ -74,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> with Helpers {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 39, left: 60),
+              margin: const EdgeInsets.only(top: 39, left: 40),
               width: 300,
               child: TextField(
                 controller: _emailTextController,
@@ -103,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> with Helpers {
             Container(
               margin: const EdgeInsets.only(
                 top: 39,
-                left: 60,
+                left: 40,
               ),
               width: 300,
               child: TextField(
@@ -132,7 +132,7 @@ class _LoginScreenState extends State<LoginScreen> with Helpers {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 0, left: 180),
+              margin: const EdgeInsets.only(top: 0, left: 140),
               width: 300,
               child: TextButton(
                 onPressed: () =>
@@ -141,7 +141,7 @@ class _LoginScreenState extends State<LoginScreen> with Helpers {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 20, left: 60),
+              margin: const EdgeInsets.only(top: 20, left: 40),
               width: 300,
               height: 53,
               child: ElevatedButton(
@@ -199,7 +199,7 @@ class _LoginScreenState extends State<LoginScreen> with Helpers {
                   // }
                 },
                 child: Container(
-                  margin: const EdgeInsets.only(top: 39, left: 60),
+                  margin: const EdgeInsets.only(top: 39, left: 40),
                   width: 300,
                   height: 53,
                   padding: const EdgeInsets.only(

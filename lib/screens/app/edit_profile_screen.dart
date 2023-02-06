@@ -13,8 +13,7 @@ class EditProfileScreen extends StatefulWidget {
   State<EditProfileScreen> createState() => _EditProfileScreenState();
 }
 
-
-class _EditProfileScreenState extends State<EditProfileScreen> with Helpers{
+class _EditProfileScreenState extends State<EditProfileScreen> with Helpers {
   late TextEditingController _nameTextController;
   late TextEditingController _weightTextController;
   late TextEditingController _heightTextController;
@@ -26,7 +25,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> with Helpers{
   String ageText = '';
 
   // late TextEditingController _nameTextController;
-
 
   @override
   void initState() {
@@ -86,12 +84,28 @@ class _EditProfileScreenState extends State<EditProfileScreen> with Helpers{
         ],
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const Padding(
+            padding: EdgeInsets.only(
+              bottom: 5,
+              left: 45,
+            ),
+            child: Text(
+              "Name",
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                color: Color(0xff415380),
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.only(
               left: 30,
               right: 30,
-              bottom: 20,
+              bottom: 15,
             ),
             child: TextField(
               controller: _nameTextController,
@@ -122,8 +136,23 @@ class _EditProfileScreenState extends State<EditProfileScreen> with Helpers{
               ),
             ),
           ),
+          const Padding(
+            padding: EdgeInsets.only(
+              bottom: 5,
+              left: 45,
+            ),
+            child: Text(
+              "Age",
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                color: Color(0xff415380),
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
+            ),
+          ),
           Padding(
-            padding: const EdgeInsets.only(left: 30, right: 30, bottom: 20),
+            padding: const EdgeInsets.only(left: 30, right: 30, bottom: 15),
             child: TextField(
               controller: _ageTextController,
               style: const TextStyle(
@@ -153,8 +182,23 @@ class _EditProfileScreenState extends State<EditProfileScreen> with Helpers{
               ),
             ),
           ),
+          const Padding(
+            padding: EdgeInsets.only(
+              bottom: 5,
+              left: 45,
+            ),
+            child: Text(
+              "Weight",
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                color: Color(0xff415380),
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
+            ),
+          ),
           Padding(
-            padding: const EdgeInsets.only(left: 30, right: 30, bottom: 20),
+            padding: const EdgeInsets.only(left: 30, right: 30, bottom: 15),
             child: TextField(
               controller: _weightTextController,
               style: const TextStyle(
@@ -184,8 +228,23 @@ class _EditProfileScreenState extends State<EditProfileScreen> with Helpers{
               ),
             ),
           ),
+          const Padding(
+            padding: EdgeInsets.only(
+              bottom: 5,
+              left: 45,
+            ),
+            child: Text(
+              "Height",
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                color: Color(0xff415380),
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
+            ),
+          ),
           Padding(
-            padding: const EdgeInsets.only(left: 30, right: 30, bottom: 20),
+            padding: const EdgeInsets.only(left: 30, right: 30, bottom: 15),
             child: TextField(
               controller: _heightTextController,
               style: const TextStyle(
@@ -216,12 +275,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> with Helpers{
             ),
           ),
           GestureDetector(
-            onTap: () async{
+            onTap: () async {
               await performUpdate();
             },
             child: Center(
               child: Container(
-                margin: const EdgeInsets.only(top: 39, left: 0),
+                margin: const EdgeInsets.only(top: 29, left: 0),
                 width: 290,
                 height: 53,
                 padding: const EdgeInsets.only(
@@ -377,28 +436,28 @@ class _EditProfileScreenState extends State<EditProfileScreen> with Helpers{
       });
     });
   }
-  Future<void> performUpdate() async{
-  Person person = Person();
-  person.id = user.uid;
-  person.email = user.email!;
-  person.name = _nameTextController.text;
-  person.weight = int.parse(_weightTextController.text);
-  person.height = int.parse(_heightTextController.text);
-  person.age = int.parse(_ageTextController.text);
 
-  bool fireStoreResult = await FbFireStoreController().updateUser(person);
+  Future<void> performUpdate() async {
+    Person person = Person();
+    person.id = user.uid;
+    person.email = user.email!;
+    person.name = _nameTextController.text;
+    person.weight = int.parse(_weightTextController.text);
+    person.height = int.parse(_heightTextController.text);
+    person.age = int.parse(_ageTextController.text);
 
-  String fireStoreResponse =  fireStoreResult.toString();
-  print (fireStoreResponse);
-  if (fireStoreResponse == 'true') {
-    showSnackBar(context: context, message: "User created successfully");
-    Navigator.pop(context);
-  }
-  else {
-    showSnackBar(
-        context: context,
-        message: "Update failed. Please, try again!",
-        error: true);
-  }
+    bool fireStoreResult = await FbFireStoreController().updateUser(person);
+
+    String fireStoreResponse = fireStoreResult.toString();
+    print(fireStoreResponse);
+    if (fireStoreResponse == 'true') {
+      showSnackBar(context: context, message: "User created successfully");
+      Navigator.pop(context);
+    } else {
+      showSnackBar(
+          context: context,
+          message: "Update failed. Please, try again!",
+          error: true);
+    }
   }
 }

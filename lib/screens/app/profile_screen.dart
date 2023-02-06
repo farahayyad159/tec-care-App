@@ -66,7 +66,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ],
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const Padding(
+            padding: EdgeInsets.only(
+              bottom: 10,
+              left: 45,
+            ),
+            child: Text(
+              "Name",
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                color: Color(0xff415380),
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.only(
               left: 30,
@@ -97,6 +113,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
           ),
+          const Padding(
+            padding: EdgeInsets.only(
+              bottom: 10,
+              left: 45,
+            ),
+            child: Text(
+              "Age",
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                color: Color(0xff415380),
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.only(left: 30, right: 30, bottom: 20),
             child: TextField(
@@ -123,6 +154,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
           ),
+          const Padding(
+            padding: EdgeInsets.only(
+              bottom: 10,
+              left: 45,
+            ),
+            child: Text(
+              "Weight",
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                color: Color(0xff415380),
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.only(left: 30, right: 30, bottom: 20),
             child: TextField(
@@ -146,6 +192,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     color: Colors.blue,
                   ),
                 ),
+              ),
+            ),
+          ),
+          const Padding(
+            padding: EdgeInsets.only(
+              bottom: 10,
+              left: 45,
+            ),
+            child: Text(
+              "Height",
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                color: Color(0xff415380),
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
               ),
             ),
           ),

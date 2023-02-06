@@ -275,8 +275,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                           child: Container(
                             margin: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 8),
-                            width: 380,
+                                horizontal: 10, vertical: 8),
+                            width: 300,
                             height: 140,
                             decoration: BoxDecoration(
                               color: Colors.grey.shade200,
@@ -288,7 +288,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ClipRRect(
                                   borderRadius: const BorderRadius.only(
                                     bottomLeft: Radius.circular(20),
-                                    topLeft: Radius.circular(20),
+                                    topLeft: Radius.circular(10),
                                   ),
                                   child: Image.network(
                                     // 'https://media.istockphoto.com/id/964071376/photo/cross-training-and-weight-lifting.jpg?s=612x612&w=0&k=20&c=aAMOyMKxF_-DnJyDAdVckhP1EKa-Fa3szleGEhEAuec=',
@@ -309,7 +309,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.symmetric(
-                                            horizontal: 10),
+                                            horizontal: 7),
                                         child: Text(
                                           snapshot.data!.docs[index]
                                               .data()
@@ -360,9 +360,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                           child: Container(
                             margin: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 10),
-                            width: 380,
-                            height: 150,
+                                horizontal: 10, vertical: 8),
+                            width: 300,
+                            height: 140,
                             decoration: BoxDecoration(
                               color: Colors.grey.shade200,
                               borderRadius:
@@ -377,8 +377,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: Image.network(
                                     snapshot.data!.docs[index].data().urlImage,
                                     fit: BoxFit.cover,
-                                    width: 150,
-                                    height: 150,
+                                    width: 140,
+                                    height: 140,
                                   ),
                                   clipBehavior: Clip.antiAlias,
                                 ),
@@ -391,7 +391,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.symmetric(
-                                            horizontal: 12.0, vertical: 8),
+                                            horizontal: 7, vertical: 8),
                                         child: Text(
                                           snapshot.data!.docs[index]
                                               .data()
