@@ -4,11 +4,14 @@ import 'package:grad_project/chat_widgets/profile_header_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:grad_project/models/chat_user.dart';
 
+// ignore: must_be_immutable
 class ChatPage extends StatefulWidget {
   final ChatUser user;
+  bool isDoctor;
 
-  const ChatPage({
+   ChatPage({
     required this.user,
+    required this.isDoctor,
      Key? key,
   }) : super(key: key);
   @override
@@ -34,10 +37,10 @@ class _ChatPageState extends State<ChatPage> {
                       topRight: Radius.circular(25),
                     ),
                   ),
-                  child: MessagesWidget(id: widget.user.id),
+                  child: MessagesWidget(id: widget.user.id,isDoctor:widget.isDoctor,),
                 ),
               ),
-              NewMessageWidget(id: widget.user.id)
+              NewMessageWidget(id: widget.user.id,isDoctor: widget.isDoctor)
             ],
           ),
         ),

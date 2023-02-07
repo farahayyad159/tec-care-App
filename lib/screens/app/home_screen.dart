@@ -87,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-          // Navigator.pushNamed(context, '/home_screen');
+      // Navigator.pushNamed(context, '/home_screen');
       drawer: Drawer(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -100,7 +100,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 fit: BoxFit.fill,
               ),
             ),
-            
             ListTile(
               onTap: () {
                 Navigator.of(context).push(
@@ -122,10 +121,11 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             ListTile(
-              onTap: () {
+              onTap: () async {
+                final isDoctorForChat = await isDoctor();
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) =>  ChatsPage(),
+                    builder: (context) => ChatsPage(isDoctor: isDoctorForChat),
                   ),
                 );
               },
@@ -446,4 +446,12 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+  Future<bool> isDoctor() async {
+  User user = FbAuthController().user;
+  bool _isDoctor =
+      await FbFireStoreController().doesDoctorExist(user.email.toString());
+  return _isDoctor;
 }
+
+}
+

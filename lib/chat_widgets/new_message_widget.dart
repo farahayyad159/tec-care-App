@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 
 class NewMessageWidget extends StatefulWidget {
   final String id;
+  bool isDoctor;
 
-  const NewMessageWidget({
+   NewMessageWidget({
     required this.id,
+    required this.isDoctor,
     Key? key,
   }) : super(key: key);
 
@@ -19,7 +21,7 @@ class _NewMessageWidgetState extends State<NewMessageWidget> {
 
   void sendMessage() async {
     FocusScope.of(context).unfocus();
-    await FirebaseApi.uploadMessage(true, widget.id, message);
+    await FirebaseApi.uploadMessage(widget.isDoctor, widget.id, message);
     _controller.clear();
   }
 

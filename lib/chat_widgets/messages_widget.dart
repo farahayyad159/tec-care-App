@@ -9,15 +9,17 @@ import '../controllers/fb_auth_controller.dart';
 class MessagesWidget extends StatelessWidget {
   final String id;
   User user = FbAuthController().user;
+  bool isDoctor;
 
    MessagesWidget({
     required this.id,
+    required this.isDoctor,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => StreamBuilder<List<Message>>(
-        stream: FirebaseApi.getMessages(true,id),
+        stream: FirebaseApi.getMessages(isDoctor,id),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:

@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 
 import '../models/chat_user.dart';
 
+// ignore: must_be_immutable
 class ChatBodyWidget extends StatelessWidget {
   final List<ChatUser> users;
+  bool isDoctor;
 
-  const ChatBodyWidget({
+   ChatBodyWidget({
     required this.users,
+    required this.isDoctor,
     Key? key,
   }) : super(key: key);
 
@@ -36,7 +39,7 @@ class ChatBodyWidget extends StatelessWidget {
               child: ListTile(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ChatPage(user: user),
+                    builder: (context) => ChatPage(user: user,isDoctor: isDoctor),
                   ));
                 },
                 leading: const CircleAvatar(

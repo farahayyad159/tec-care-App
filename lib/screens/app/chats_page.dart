@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:grad_project/chat_widgets/chat_body_widget.dart';
 import 'package:grad_project/controllers/firebase_api.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +8,11 @@ import 'package:grad_project/screens/app/profile_screen.dart';
 
 import '../../controllers/fb_auth_controller.dart';
 
+// ignore: must_be_immutable
 class ChatsPage extends StatelessWidget {
-  ChatsPage({Key? key}) : super(key: key);
+  bool isDoctor;
+
+  ChatsPage({required this.isDoctor,Key? key}) : super(key: key);
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -95,26 +100,6 @@ class ChatsPage extends StatelessWidget {
               ),
               ListTile(
                 onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => ChatsPage(),
-                    ),
-                  );
-                },
-                leading: const Icon(
-                  Icons.local_hospital_outlined,
-                  color: Color(0XFF415380),
-                ),
-                title: const Text(
-                  'Doctors chat',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-              ListTile(
-                onTap: () {
                   Navigator.pushNamed(context, '/references_screen');
                 },
                 leading: const Icon(
@@ -168,7 +153,7 @@ class ChatsPage extends StatelessWidget {
         ),
         body: SafeArea(
           child: StreamBuilder<List<ChatUser>>(
-            stream: FirebaseApi.getUsers(true),
+            stream: FirebaseApi.getUsers(isDoctor),
             builder: (context, snapshot) {
               switch (snapshot.connectionState) {
                 case ConnectionState.waiting:
@@ -185,7 +170,7 @@ class ChatsPage extends StatelessWidget {
                     } else {
                       return Column(
                         children: [
-                          ChatBodyWidget(users: users)
+                          ChatBodyWidget(users: users,isDoctor:isDoctor)
                         ],
                       );
                     }
