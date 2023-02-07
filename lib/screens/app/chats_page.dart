@@ -21,8 +21,9 @@ class ChatsPage extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
+          toolbarHeight: 65,
           title: const Text(
-            'Doctor Chat',
+            'Doctors Chat',
             style: TextStyle(
               color: Color(0XFF415380),
               fontWeight: FontWeight.bold,

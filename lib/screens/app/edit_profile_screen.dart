@@ -337,7 +337,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> with Helpers {
     String fireStoreResponse = fireStoreResult.toString();
     print(fireStoreResponse);
     if (fireStoreResponse == 'true') {
-      showSnackBar(context: context, message: "User created successfully");
+      showSnackBar(context: context, message: "User updated successfully");
       Navigator.pop(context);
     } else {
       showSnackBar(
