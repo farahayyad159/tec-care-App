@@ -5,6 +5,7 @@ class Exercise{
   late String urlVideo;
   late String urlImage;
   late String muscleName;
+  late int burntCalories;
 
   Exercise();
   Exercise.fromMap(Map<String, dynamic> documentMap){
@@ -14,6 +15,7 @@ class Exercise{
     urlVideo = documentMap['urlVideo'];
     urlImage = documentMap['urlImage'];
     muscleName = documentMap['muscleName'];
+    burntCalories = documentMap['burntCalories'];
   }
   Map<String, dynamic> toMap(){
     Map<String,dynamic> map = <String,dynamic>{};
@@ -22,6 +24,7 @@ class Exercise{
     map['urlVideo'] = urlVideo;
     map['urlImage'] = urlImage;
     map['muscleName'] = muscleName;
+    map['burntCalories'] = burntCalories;
     return map;
   }
 

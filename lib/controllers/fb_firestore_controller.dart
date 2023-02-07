@@ -1,7 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:grad_project/controllers/fb_auth_controller.dart';
-import 'package:grad_project/models/doctor.dart';
 import 'package:grad_project/models/exercise.dart';
 import 'package:grad_project/models/person.dart';
 
@@ -45,27 +42,6 @@ class FbFireStoreController {
         )
         .snapshots();
   }
-
-
-  // Future<bool> readUser(String id) async {
-  //   return await _fireStore
-  //       .collection('users')
-  //       .doc(id)
-  //       .get()
-  //       .then((value) => true)
-  //       .catchError((e) => false);
-  // }
-
-  // Future<DocumentSnapshot> readUser(String id) {
-  //   return _fireStore
-  //       .collection('users')
-  //       .doc(id)
-  //       .get();
-  // }
-
-  // void getUser(){
-  //   _fireStore.collection('users').
-  // }
 
   // Read method
   Stream<QuerySnapshot<Exercise>> readExercises() async* {

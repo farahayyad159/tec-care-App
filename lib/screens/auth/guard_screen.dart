@@ -115,12 +115,6 @@ class _GuardScreenState extends State<GuardScreen> {
               ),
             ],
           ),
-          // const Center(
-          //   child: Text(
-          //     'OR',
-          //     style: TextStyle(color: Color(0xff415380), fontSize: 25),
-          //   ),
-          // ),
         ],
       ),
     );

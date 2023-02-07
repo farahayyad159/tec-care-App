@@ -61,20 +61,6 @@ class ContactScreen extends StatelessWidget {
                     ),
                   ),
                 ],
-                // children: [
-                //   const SizedBox(width: 15),
-                //   const Text(
-                //     "Instagram",
-                //     style: TextStyle(fontSize: 18, color: Color(0XFF415380)),
-                //   ),
-                //   const Spacer(),
-                //   // IconButton(
-                //   //     onPressed: () {},
-                //   //     icon: const Icon(
-                //   //       Icons.link,
-                //   //       color: Color(0XFF415380),
-                //   //     )),
-                // ],
               ),
             ),
           ),
@@ -107,20 +93,6 @@ class ContactScreen extends StatelessWidget {
                     ),
                   ),
                 ],
-                // children: [
-                //   const SizedBox(width: 15),
-                //   const Text(
-                //     "Instagram",
-                //     style: TextStyle(fontSize: 18, color: Color(0XFF415380)),
-                //   ),
-                //   const Spacer(),
-                //   // IconButton(
-                //   //     onPressed: () {},
-                //   //     icon: const Icon(
-                //   //       Icons.link,
-                //   //       color: Color(0XFF415380),
-                //   //     )),
-                // ],
               ),
             ),
           ),

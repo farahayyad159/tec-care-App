@@ -179,24 +179,6 @@ class _LoginScreenState extends State<LoginScreen> with Helpers {
               visible: widget.isUser,
               child: GestureDetector(
                 onTap: () {
-                  // setState(() {
-                  //   _isSigningIn = true;
-                  // });
-                  //
-                  // User? user = await
-                  // FbAuthController.signInWithGoogle(context: context);
-                  //
-                  // setState(() {
-                  //   _isSigningIn = false;
-                  // });
-                  //
-                  // if (user != null) {
-                  //   Navigator.of(context).pushReplacement(
-                  //     MaterialPageRoute(
-                  //       builder: (context) => HomeScreen(user: user),
-                  //     ),
-                  //   );
-                  // }
                 },
                 child: Container(
                   margin: const EdgeInsets.only(top: 39, left: 40),

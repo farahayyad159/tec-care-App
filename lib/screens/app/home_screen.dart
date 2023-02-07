@@ -1,13 +1,9 @@
-import 'dart:ffi';
-import 'dart:ui';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:grad_project/controllers/fb_auth_controller.dart';
 import 'package:grad_project/controllers/fb_firestore_controller.dart';
 import 'package:grad_project/models/exercise.dart';
-import 'package:grad_project/models/person.dart';
 import 'package:grad_project/screens/app/exercise_screen.dart';
 import 'package:grad_project/screens/app/profile_screen.dart';
 
@@ -291,8 +287,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                     topLeft: Radius.circular(10),
                                   ),
                                   child: Image.network(
-                                    // 'https://media.istockphoto.com/id/964071376/photo/cross-training-and-weight-lifting.jpg?s=612x612&w=0&k=20&c=aAMOyMKxF_-DnJyDAdVckhP1EKa-Fa3szleGEhEAuec=',
-                                    // 'images/exercise1.jpg',
                                     snapshot.data!.docs[index].data().urlImage,
                                     fit: BoxFit.cover,
                                     width: 140,

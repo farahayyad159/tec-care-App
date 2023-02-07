@@ -2,11 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:grad_project/controllers/fb_auth_controller.dart';
-import 'package:grad_project/controllers/fb_firestore_controller.dart';
-import 'package:grad_project/models/person.dart';
 
 class ProfileScreen extends StatefulWidget {
-  ProfileScreen({Key? key}) : super(key: key);
+  const ProfileScreen({Key? key}) : super(key: key);
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -238,120 +236,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ],
       ),
-      // body: StreamBuilder<QuerySnapshot<Person>>(
-      //   stream: FbFireStoreController().readUsers(),
-      //   builder: (context, snapshot) {
-      //     _getdata();
-      //     print(nameText);
-      //     return ListView.builder(
-      //       itemCount: snapshot.data!.size,
-      //       itemBuilder: (context, index) {
-      //         // setState(() {
-      //         //   nameText = snapshot.data!.docs[index].data().name;
-      //         //   heightText = snapshot.data!.docs[index].data().height;
-      //         //   weightText = snapshot.data!.docs[index].data().weight;
-      //         // });
-      //         // print(user.uid.runtimeType);
-      //         print(snapshot.data!.docs[index].data().id.runtimeType);
-      //         if (snapshot.data!.docs[index].data().id == user.uid) {
-      //           return Column(
-      //             children: [
-      //               Padding(
-      //                 padding: const EdgeInsets.only(
-      //                     left: 30, right: 30, bottom: 20),
-      //                 child: TextField(
-      //                   controller: _nameTextController,
-      //                   decoration: InputDecoration(
-      //                     // errorText: _emailError,
-      //                     // hintText: snapshot.data!.docs[index].data().name,
-      //                     enabledBorder: OutlineInputBorder(
-      //                       borderRadius: BorderRadius.circular(30),
-      //                       borderSide: const BorderSide(
-      //                         color: Colors.grey,
-      //                       ),
-      //                     ),
-      //                     errorBorder: OutlineInputBorder(
-      //                       borderRadius: BorderRadius.circular(30),
-      //                       borderSide: const BorderSide(
-      //                         color: Colors.red,
-      //                       ),
-      //                     ),
-      //                     focusedBorder: OutlineInputBorder(
-      //                       borderRadius: BorderRadius.circular(30),
-      //                       borderSide: const BorderSide(
-      //                         color: Colors.blue,
-      //                       ),
-      //                     ),
-      //                   ),
-      //                 ),
-      //               ),
-      //               Padding(
-      //                 padding: const EdgeInsets.only(
-      //                     left: 30, right: 30, bottom: 20),
-      //                 child: TextField(
-      //                   controller: _weightTextController,
-      //                   decoration: InputDecoration(
-      //                     // errorText: _emailError,
-      //                     hintText: _nameTextController.text,
-      //                     enabledBorder: OutlineInputBorder(
-      //                       borderRadius: BorderRadius.circular(30),
-      //                       borderSide: const BorderSide(
-      //                         color: Colors.grey,
-      //                       ),
-      //                     ),
-      //                     errorBorder: OutlineInputBorder(
-      //                       borderRadius: BorderRadius.circular(30),
-      //                       borderSide: const BorderSide(
-      //                         color: Colors.red,
-      //                       ),
-      //                     ),
-      //                     focusedBorder: OutlineInputBorder(
-      //                       borderRadius: BorderRadius.circular(30),
-      //                       borderSide: const BorderSide(
-      //                         color: Colors.blue,
-      //                       ),
-      //                     ),
-      //                   ),
-      //                 ),
-      //               ),
-      //               Padding(
-      //                 padding: const EdgeInsets.only(
-      //                     left: 30, right: 30, bottom: 20),
-      //                 child: TextField(
-      //                   controller: _heightTextController,
-      //                   decoration: InputDecoration(
-      //                     // errorText: _emailError,
-      //                     hintText: 'Height',
-      //                     enabledBorder: OutlineInputBorder(
-      //                       borderRadius: BorderRadius.circular(30),
-      //                       borderSide: const BorderSide(
-      //                         color: Colors.grey,
-      //                       ),
-      //                     ),
-      //                     errorBorder: OutlineInputBorder(
-      //                       borderRadius: BorderRadius.circular(30),
-      //                       borderSide: const BorderSide(
-      //                         color: Colors.red,
-      //                       ),
-      //                     ),
-      //                     focusedBorder: OutlineInputBorder(
-      //                       borderRadius: BorderRadius.circular(30),
-      //                       borderSide: const BorderSide(
-      //                         color: Colors.blue,
-      //                       ),
-      //                     ),
-      //                   ),
-      //                 ),
-      //               ),
-      //             ],
-      //           );
-      //         } else {
-      //           return Center();
-      //         }
-      //       },
-      //     );
-      //   },
-      // ),
     );
   }
 

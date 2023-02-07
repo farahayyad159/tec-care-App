@@ -1,7 +1,3 @@
-import 'dart:ui';
-
-import 'package:dob_input_field/dob_input_field.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:grad_project/controllers/fb_auth_controller.dart';
 import 'package:grad_project/controllers/fb_firestore_controller.dart';
@@ -118,43 +114,6 @@ class _RegisterScreenState extends State<RegisterScreen> with Helpers {
                 ),
               ),
             ),
-            // Container(
-            //   margin: const EdgeInsets.only(top: 20, left: 60),
-            //   width: 300,
-            //   decoration: BoxDecoration(
-            //     border: Border(bottom: BorderSide(color: Colors.grey)),
-            //   ),
-            //   child: DOBInputField(
-            //     firstDate: DateTime(1900),
-            //     lastDate: DateTime.now(),
-            //     showLabel: true,
-            //     autovalidateMode: AutovalidateMode.always,
-            //     fieldLabelText: "Date of birth",
-            //   ),
-            //   // child: TextField(
-            //   //   keyboardType: TextInputType.datetime,
-            //   //   controller: _dateTextController,
-            //   //   decoration: InputDecoration(
-            //   //     prefixIcon: const Icon(Icons.date_range),
-            //   //     hintText: 'Date of birth',
-            //   //     enabledBorder: OutlineInputBorder(
-            //   //       borderRadius: BorderRadius.circular(15),
-            //   //     ),
-            //   //     errorBorder: OutlineInputBorder(
-            //   //       borderRadius: BorderRadius.circular(15),
-            //   //       borderSide: const BorderSide(
-            //   //         color: Colors.red,
-            //   //       ),
-            //   //     ),
-            //   //     focusedBorder: OutlineInputBorder(
-            //   //       borderRadius: BorderRadius.circular(15),
-            //   //       borderSide: const BorderSide(
-            //   //         color: Colors.blue,
-            //   //       ),
-            //   //     ),
-            //   //   ),
-            //   // ),
-            // ),
             Container(
               margin: const EdgeInsets.only(top: 20, left: 40),
               width: 300,

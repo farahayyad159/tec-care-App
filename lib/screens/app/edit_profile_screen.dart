@@ -7,7 +7,7 @@ import 'package:grad_project/helpers/helpers.dart';
 import 'package:grad_project/models/person.dart';
 
 class EditProfileScreen extends StatefulWidget {
-  EditProfileScreen({Key? key}) : super(key: key);
+  const EditProfileScreen({Key? key}) : super(key: key);
 
   @override
   State<EditProfileScreen> createState() => _EditProfileScreenState();
@@ -304,120 +304,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> with Helpers {
           ),
         ],
       ),
-      // body: StreamBuilder<QuerySnapshot<Person>>(
-      //   stream: FbFireStoreController().readUsers(),
-      //   builder: (context, snapshot) {
-      //     _getdata();
-      //     print(nameText);
-      //     return ListView.builder(
-      //       itemCount: snapshot.data!.size,
-      //       itemBuilder: (context, index) {
-      //         // setState(() {
-      //         //   nameText = snapshot.data!.docs[index].data().name;
-      //         //   heightText = snapshot.data!.docs[index].data().height;
-      //         //   weightText = snapshot.data!.docs[index].data().weight;
-      //         // });
-      //         // print(user.uid.runtimeType);
-      //         print(snapshot.data!.docs[index].data().id.runtimeType);
-      //         if (snapshot.data!.docs[index].data().id == user.uid) {
-      //           return Column(
-      //             children: [
-      //               Padding(
-      //                 padding: const EdgeInsets.only(
-      //                     left: 30, right: 30, bottom: 20),
-      //                 child: TextField(
-      //                   controller: _nameTextController,
-      //                   decoration: InputDecoration(
-      //                     // errorText: _emailError,
-      //                     // hintText: snapshot.data!.docs[index].data().name,
-      //                     enabledBorder: OutlineInputBorder(
-      //                       borderRadius: BorderRadius.circular(30),
-      //                       borderSide: const BorderSide(
-      //                         color: Colors.grey,
-      //                       ),
-      //                     ),
-      //                     errorBorder: OutlineInputBorder(
-      //                       borderRadius: BorderRadius.circular(30),
-      //                       borderSide: const BorderSide(
-      //                         color: Colors.red,
-      //                       ),
-      //                     ),
-      //                     focusedBorder: OutlineInputBorder(
-      //                       borderRadius: BorderRadius.circular(30),
-      //                       borderSide: const BorderSide(
-      //                         color: Colors.blue,
-      //                       ),
-      //                     ),
-      //                   ),
-      //                 ),
-      //               ),
-      //               Padding(
-      //                 padding: const EdgeInsets.only(
-      //                     left: 30, right: 30, bottom: 20),
-      //                 child: TextField(
-      //                   controller: _weightTextController,
-      //                   decoration: InputDecoration(
-      //                     // errorText: _emailError,
-      //                     hintText: _nameTextController.text,
-      //                     enabledBorder: OutlineInputBorder(
-      //                       borderRadius: BorderRadius.circular(30),
-      //                       borderSide: const BorderSide(
-      //                         color: Colors.grey,
-      //                       ),
-      //                     ),
-      //                     errorBorder: OutlineInputBorder(
-      //                       borderRadius: BorderRadius.circular(30),
-      //                       borderSide: const BorderSide(
-      //                         color: Colors.red,
-      //                       ),
-      //                     ),
-      //                     focusedBorder: OutlineInputBorder(
-      //                       borderRadius: BorderRadius.circular(30),
-      //                       borderSide: const BorderSide(
-      //                         color: Colors.blue,
-      //                       ),
-      //                     ),
-      //                   ),
-      //                 ),
-      //               ),
-      //               Padding(
-      //                 padding: const EdgeInsets.only(
-      //                     left: 30, right: 30, bottom: 20),
-      //                 child: TextField(
-      //                   controller: _heightTextController,
-      //                   decoration: InputDecoration(
-      //                     // errorText: _emailError,
-      //                     hintText: 'Height',
-      //                     enabledBorder: OutlineInputBorder(
-      //                       borderRadius: BorderRadius.circular(30),
-      //                       borderSide: const BorderSide(
-      //                         color: Colors.grey,
-      //                       ),
-      //                     ),
-      //                     errorBorder: OutlineInputBorder(
-      //                       borderRadius: BorderRadius.circular(30),
-      //                       borderSide: const BorderSide(
-      //                         color: Colors.red,
-      //                       ),
-      //                     ),
-      //                     focusedBorder: OutlineInputBorder(
-      //                       borderRadius: BorderRadius.circular(30),
-      //                       borderSide: const BorderSide(
-      //                         color: Colors.blue,
-      //                       ),
-      //                     ),
-      //                   ),
-      //                 ),
-      //               ),
-      //             ],
-      //           );
-      //         } else {
-      //           return Center();
-      //         }
-      //       },
-      //     );
-      //   },
-      // ),
     );
   }
 

@@ -1,12 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:comment_box/comment/comment.dart';
 import 'package:flutter/material.dart';
 import 'package:grad_project/controllers/fb_auth_controller.dart';
-import 'package:grad_project/controllers/fb_firestore_controller.dart';
 import 'package:grad_project/models/exercise.dart';
 import 'package:grad_project/screens/app/home_screen.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
+// ignore: must_be_immutable
 class ExerciseScreen extends StatefulWidget {
   ExerciseScreen({required this.exercise, Key? key}) : super(key: key);
 
@@ -17,6 +15,7 @@ class ExerciseScreen extends StatefulWidget {
 
 class _ExerciseScreenState extends State<ExerciseScreen> {
   int _counter = 0;
+  int _burnt = 0;
   late YoutubePlayerController _youtubePlayerController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -51,9 +50,6 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
         controller: _youtubePlayerController,
         showVideoProgressIndicator: true,
         progressIndicatorColor: Colors.amber,
-        //   onReady: () {
-        // _youtubePlayerController.addListener(listener);
-        // },
       ),
       builder: (context, player) {
         return Scaffold(
@@ -213,12 +209,26 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
               Container(
                 margin:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                child: Text(
-                  widget.exercise.description,
-                  style: const TextStyle(
-                    color: Color(0XFF415380),
-                    fontSize: 16,
-                  ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.exercise.description,
+                      style: const TextStyle(
+                        color: Color(0XFF415380),
+                        fontSize: 16,
+                      ),
+                    ),
+                    Text(
+                      'A round of 30 mins burns ' +
+                          widget.exercise.burntCalories.toString() +
+                          ' calories.',
+                      style: const TextStyle(
+                        color: Color(0XFF415380),
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Row(
@@ -229,6 +239,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                     onTap: () {
                       setState(() {
                         _counter = 0;
+                        _burnt = 0;
                       });
                     },
                     child: Container(
@@ -284,6 +295,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                     onTap: () {
                       setState(() {
                         ++_counter;
+                        _burnt += widget.exercise.burntCalories;
                       });
                     },
                     child: Container(
@@ -324,6 +336,25 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                     ),
                   ),
                 ],
+              ),
+              Visibility(
+                visible: _burnt != 0,
+                child: Container(
+                  margin: const EdgeInsets.only(
+                    left: 120,
+                  ),
+                  child: Row(
+                    children: [
+                      Text(
+                        'You burnt ' + _burnt.toString() + ' calories.',
+                        style: const TextStyle(
+                          color: Color(0XFF415380),
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
