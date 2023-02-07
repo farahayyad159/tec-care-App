@@ -167,8 +167,8 @@ class ChatsPage extends StatelessWidget {
           ),
         ),
         body: SafeArea(
-          child: StreamBuilder<Stream<List<ChatUser>>>(
-            stream: FirebaseApi.getUsers(),
+          child: StreamBuilder<List<ChatUser>>(
+            stream: FirebaseApi.getUsers(true),
             builder: (context, snapshot) {
               switch (snapshot.connectionState) {
                 case ConnectionState.waiting:

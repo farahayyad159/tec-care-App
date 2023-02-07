@@ -5,14 +5,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:grad_project/models/chat_user.dart';
 import 'package:grad_project/controllers/fb_auth_controller.dart';
 import '../utils.dart';
-import 'fb_firestore_controller.dart';
 
 class FirebaseApi {
-  static Future<Stream<List<ChatUser>>> getUsers() async {
-    User user = FbAuthController().user;
-    Future<bool> isDoctor = FbFireStoreController().isDoctor(user.email!);
+
+  static Stream<List<ChatUser>> getUsers(bool isDoctor) {
+  User user = FbAuthController().user;
+
     print({user});
-    if (await isDoctor) {
+    if (isDoctor) {
       return FirebaseFirestore.instance
           .collection('users')
           .snapshots()
@@ -25,18 +25,18 @@ class FirebaseApi {
     }
   }
 
-  static Future uploadMessage(String id, String message) async {
-    User user = FbAuthController().user;
-    Future<bool> isDoctor = FbFireStoreController().isDoctor(user.email!);
-    final newMessage = Message(
-      id: user.uid,
-      name: user.displayName!,
-      message: message,
-      createdAt: DateTime.now(),
-    );
-    if (await isDoctor) {
+  static Future uploadMessage(bool isDoctor, String id, String message) async {
+      User user = FbAuthController().user;
+     final newMessage = Message(
+        id: user.uid,
+        name: user.displayName!,
+        message: message,
+        createdAt: DateTime.now(),
+      );
+    if (isDoctor) {
       final refMessages =
           FirebaseFirestore.instance.collection('chats/$id/messages');
+
 
       await refMessages.add(newMessage.toJson());
 
@@ -56,18 +56,16 @@ class FirebaseApi {
     }
   }
 
-  static Future<Stream<List<Message>>> getMessages(String id) async {
-    User user = FbAuthController().user;
-    Future<bool> isDoctor = FbFireStoreController().isDoctor(user.email!);
-
-    if (await isDoctor) {
+  static Stream<List<Message>> getMessages(bool isDoctor, String id) {
+          User user = FbAuthController().user;
+    if (isDoctor) {
       return FirebaseFirestore.instance
           .collection('chats/$id/messages')
           .orderBy(MessageField.createdAt, descending: true)
           .snapshots()
           .transform(Utils.transformer(Message.fromJson));
     } else {
-      print('gettttttttttt' + id);
+
       return FirebaseFirestore.instance
           .collection('chats/${user.uid}/messages')
           .orderBy(MessageField.createdAt, descending: true)
