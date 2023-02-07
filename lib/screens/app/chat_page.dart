@@ -2,10 +2,10 @@ import 'package:grad_project/chat_widgets/messages_widget.dart';
 import 'package:grad_project/chat_widgets/new_message_widget.dart';
 import 'package:grad_project/chat_widgets/profile_header_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:grad_project/models/user.dart';
+import 'package:grad_project/models/chat_user.dart';
 
 class ChatPage extends StatefulWidget {
-  final User user;
+  final ChatUser user;
 
   const ChatPage({
     required this.user,
@@ -19,7 +19,7 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         extendBodyBehindAppBar: true,
-        backgroundColor: Colors.blue,
+       backgroundColor: const Color(0XFF415380),
         body: SafeArea(
           child: Column(
             children: [

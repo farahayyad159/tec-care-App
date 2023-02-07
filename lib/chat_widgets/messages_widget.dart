@@ -1,19 +1,23 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:grad_project/controllers/firebase_api.dart';
 import 'package:grad_project/models/message.dart';
 import 'package:grad_project/chat_widgets/message_widget.dart';
 import 'package:flutter/material.dart';
 
+import '../controllers/fb_auth_controller.dart';
+
 class MessagesWidget extends StatelessWidget {
   final String id;
+  User user = FbAuthController().user;
 
-  const MessagesWidget({
+   MessagesWidget({
     required this.id,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => StreamBuilder<List<Message>>(
-        stream: FirebaseApi.getMessages(false,id),
+        stream: FirebaseApi.getMessages(id),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
@@ -35,7 +39,7 @@ class MessagesWidget extends StatelessWidget {
                           print(message.toJson());
                           return MessageWidget(
                             message: message,
-                            isMe: message.id == "myId",
+                            isMe: message.id == user.uid,
                           );
                         },
                       );

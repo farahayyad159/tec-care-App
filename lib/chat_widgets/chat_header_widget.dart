@@ -1,9 +1,9 @@
-import 'package:grad_project/models/user.dart';
+import 'package:grad_project/models/chat_user.dart';
 import 'package:grad_project/screens/app/chat_page.dart';
 import 'package:flutter/material.dart';
 
 class ChatHeaderWidget extends StatelessWidget {
-  final List<User> users;
+  final List<ChatUser> users;
 
   const ChatHeaderWidget({
     required this.users,
@@ -18,32 +18,24 @@ class ChatHeaderWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
+              
               width: MediaQuery.of(context).size.width * 0.75,
               child:const Text(
-                'ChatsApp',
+                'Doctor Chats',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 30,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
            const SizedBox(height: 12),
             SizedBox(
-              height: 60,
+              height: 20,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: users.length,
                 itemBuilder: (context, index) {
-                  if (index == 0) {
-                    return Container(
-                      margin:const EdgeInsets.only(right: 12),
-                      child: const CircleAvatar(
-                        radius: 24,
-                        child: Icon(Icons.search),
-                      ),
-                    );
-                  } else {
                     return Container(
                       margin: const EdgeInsets.only(right: 12),
                       child: GestureDetector(
@@ -58,7 +50,7 @@ class ChatHeaderWidget extends StatelessWidget {
                         ),
                       ),
                     );
-                  }
+                  
                 },
               ),
             )

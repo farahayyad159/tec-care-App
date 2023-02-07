@@ -2,25 +2,25 @@ class UserField {
   static const String lastMessageTime = 'lastMessageTime';
 }
 
-class User {
+class ChatUser {
   final String id;
   final String name;
 
-  const User({
+  const ChatUser({
     required this.id,
     required this.name,
   });
 
-  User copyWith({
+  ChatUser copyWith({
     required String id,
     required String name,
   }) =>
-      User(
+      ChatUser(
         id: id,
         name: name,
       );
 
-  static User fromJson(Map<String, dynamic> json) => User(
+  static ChatUser fromJson(Map<String, dynamic> json) => ChatUser(
         id: json['id'],
         name: json['name'],
       );

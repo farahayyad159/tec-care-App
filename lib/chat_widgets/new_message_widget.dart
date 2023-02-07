@@ -19,16 +19,14 @@ class _NewMessageWidgetState extends State<NewMessageWidget> {
 
   void sendMessage() async {
     FocusScope.of(context).unfocus();
-    print(widget.id);
-    await FirebaseApi.uploadMessage(false,widget.id,message);
-    print("Hii just arrive here");
+    await FirebaseApi.uploadMessage( widget.id, message);
     _controller.clear();
   }
 
   @override
   Widget build(BuildContext context) => Container(
         color: Colors.white,
-        padding:const EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         child: Row(
           children: <Widget>[
             Expanded(
@@ -42,7 +40,8 @@ class _NewMessageWidgetState extends State<NewMessageWidget> {
                   fillColor: Colors.grey[100],
                   labelText: 'Type your message',
                   border: OutlineInputBorder(
-                    borderSide: const BorderSide(width: 0),
+                    borderSide:
+                        const BorderSide(width: 0, color: Color(0XFF415380)),
                     gapPadding: 10,
                     borderRadius: BorderRadius.circular(25),
                   ),
@@ -52,16 +51,16 @@ class _NewMessageWidgetState extends State<NewMessageWidget> {
                 }),
               ),
             ),
-           const SizedBox(width: 20),
+            const SizedBox(width: 20),
             GestureDetector(
               onTap: message.trim().isEmpty ? null : sendMessage,
               child: Container(
                 padding: const EdgeInsets.all(8),
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.blue,
+                  color: Color(0XFF415380),
                 ),
-                child:const Icon(Icons.send, color: Colors.white),
+                child: const Icon(Icons.send, color: Colors.white),
               ),
             ),
           ],

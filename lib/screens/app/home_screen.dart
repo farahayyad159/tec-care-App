@@ -7,6 +7,8 @@ import 'package:grad_project/models/exercise.dart';
 import 'package:grad_project/screens/app/exercise_screen.dart';
 import 'package:grad_project/screens/app/profile_screen.dart';
 
+import 'chats_page.dart';
+
 class HomeScreen extends StatefulWidget {
   HomeScreen({required this.user, this.isDoctor = false, Key? key})
       : super(key: key);
@@ -85,6 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
+          // Navigator.pushNamed(context, '/home_screen');
       drawer: Drawer(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -97,11 +100,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 fit: BoxFit.fill,
               ),
             ),
+            
             ListTile(
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => ProfileScreen(),
+                    builder: (context) => const ProfileScreen(),
                   ),
                 );
               },
@@ -119,7 +123,11 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ListTile(
               onTap: () {
-                Navigator.pushNamed(context, '/login_screen');
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) =>  ChatsPage(),
+                  ),
+                );
               },
               leading: const Icon(
                 Icons.local_hospital_outlined,
