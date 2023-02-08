@@ -1,16 +1,19 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:grad_project/controllers/fb_auth_controller.dart';
+import 'package:grad_project/controllers/fb_firestore_controller.dart';
 import 'package:grad_project/models/exercise.dart';
 import 'package:grad_project/screens/app/home_screen.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 // ignore: must_be_immutable
 class ExerciseScreen extends StatefulWidget {
-  ExerciseScreen({required this.exercise, Key? key}) : super(key: key);
+  ExerciseScreen({required this.exercise, required this.isDoctor, Key? key}) : super(key: key);
 
   @override
   State<ExerciseScreen> createState() => _ExerciseScreenState();
   Exercise exercise;
+  bool isDoctor;
 }
 
 class _ExerciseScreenState extends State<ExerciseScreen> {
@@ -18,6 +21,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
   int _burnt = 0;
   late YoutubePlayerController _youtubePlayerController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
 
   @override
   void initState() {
@@ -99,10 +103,11 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                   ),
                 ),
                 ListTile(
+                  // onTap: () => Navigator.pop(context),
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => HomeScreen(user: null),
+                        builder: (context) => HomeScreen(user: FbAuthController().user, isDoctor: widget.isDoctor,),
                       ),
                     );
                   },
@@ -118,35 +123,22 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                     ),
                   ),
                 ),
-                ListTile(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/profile_screen');
-                  },
-                  leading: const Icon(
-                    Icons.person,
-                    color: Color(0XFF415380),
-                  ),
-                  title: const Text(
-                    'My Profile',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.black,
+                Visibility(
+                  visible: !widget.isDoctor,
+                  child: ListTile(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/profile_screen');
+                    },
+                    leading: const Icon(
+                      Icons.person,
+                      color: Color(0XFF415380),
                     ),
-                  ),
-                ),
-                ListTile(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/login_screen');
-                  },
-                  leading: const Icon(
-                    Icons.timer_outlined,
-                    color: Color(0XFF415380),
-                  ),
-                  title: const Text(
-                    'Reminders',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.black,
+                    title: const Text(
+                      'My Profile',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.black,
+                      ),
                     ),
                   ),
                 ),
@@ -185,7 +177,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                 ListTile(
                   onTap: () async {
                     await FbAuthController().signOut();
-                    Navigator.pushReplacementNamed(context, '/login_screen');
+                    Navigator.pushReplacementNamed(context, '/guard_screen');
                   },
                   leading: const Icon(
                     Icons.logout,

@@ -10,13 +10,13 @@ import 'package:grad_project/screens/app/profile_screen.dart';
 import 'chats_page.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({required this.user, this.isDoctor = false, Key? key})
+  HomeScreen({required this.user, required this.isDoctor, Key? key})
       : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
+  User user;
   bool isDoctor;
-  User? user;
 }
 
 class _HomeScreenState extends State<HomeScreen> {
@@ -35,13 +35,24 @@ class _HomeScreenState extends State<HomeScreen> {
     'upper legs',
     'waist'
   ];
-  var selectedType;
 
+  var selectedType;
+  User user = FbAuthController().user;
+
+  // bool isDoc=false;
+  // void isDoctor() async {
+  //   User user = FbAuthController().user;
+  //   setState(() async{
+  //     isDoc = await FbFireStoreController().doesDoctorExist(user.email.toString());
+  //   });
+  // }
   @override
   void initState() {
     // TODO: implement initState
+    // isDoctor();
     super.initState();
     _searchTextController = TextEditingController();
+    // print('==============='+isDoc.toString());
   }
 
   @override
@@ -100,32 +111,34 @@ class _HomeScreenState extends State<HomeScreen> {
                 fit: BoxFit.fill,
               ),
             ),
-            ListTile(
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const ProfileScreen(),
+            Visibility(
+              visible: !widget.isDoctor,
+              child: ListTile(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => ProfileScreen(),
+                    ),
+                  );
+                },
+                leading: const Icon(
+                  Icons.person,
+                  color: Color(0XFF415380),
+                ),
+                title: const Text(
+                  'My Profile',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.black,
                   ),
-                );
-              },
-              leading: const Icon(
-                Icons.person,
-                color: Color(0XFF415380),
-              ),
-              title: const Text(
-                'My Profile',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.black,
                 ),
               ),
             ),
             ListTile(
               onTap: () async {
-                final isDoctorForChat = await isDoctor();
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => ChatsPage(isDoctor: isDoctorForChat),
+                    builder: (context) => ChatsPage(isDoctor: widget.isDoctor),
                   ),
                 );
               },
@@ -176,7 +189,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ListTile(
               onTap: () async {
                 await FbAuthController().signOut();
-                Navigator.pushReplacementNamed(context, '/login_screen');
+                Navigator.pushReplacementNamed(context, '/guard_screen');
               },
               leading: const Icon(
                 Icons.logout,
@@ -269,10 +282,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       if (selectedType == '' || selectedType == null) {
                         return GestureDetector(
                           onTap: () async {
-                            await Navigator.of(context).pushReplacement(
+                            await Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) => ExerciseScreen(
                                   exercise: snapshot.data!.docs[index].data(),
+                                  isDoctor: widget.isDoctor,
                                 ),
                               ),
                             );
@@ -355,8 +369,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             await Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
                                 builder: (context) => ExerciseScreen(
-                                    exercise:
-                                        snapshot.data!.docs[index].data()),
+                                  exercise: snapshot.data!.docs[index].data(),
+                                  isDoctor: widget.isDoctor,
+                                ),
                               ),
                             );
                           },
@@ -446,12 +461,4 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-  Future<bool> isDoctor() async {
-  User user = FbAuthController().user;
-  bool _isDoctor =
-      await FbFireStoreController().doesDoctorExist(user.email.toString());
-  return _isDoctor;
 }
-
-}
-

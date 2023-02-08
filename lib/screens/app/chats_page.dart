@@ -4,6 +4,7 @@ import 'package:grad_project/chat_widgets/chat_body_widget.dart';
 import 'package:grad_project/controllers/firebase_api.dart';
 import 'package:flutter/material.dart';
 import 'package:grad_project/models/chat_user.dart';
+import 'package:grad_project/screens/app/home_screen.dart';
 import 'package:grad_project/screens/app/profile_screen.dart';
 
 import '../../controllers/fb_auth_controller.dart';
@@ -12,7 +13,7 @@ import '../../controllers/fb_auth_controller.dart';
 class ChatsPage extends StatelessWidget {
   bool isDoctor;
 
-  ChatsPage({required this.isDoctor,Key? key}) : super(key: key);
+  ChatsPage({required this.isDoctor, Key? key}) : super(key: key);
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -65,7 +66,11 @@ class ChatsPage extends StatelessWidget {
               ),
               ListTile(
                 onTap: () {
-                  Navigator.pushNamed(context, '/home_screen');
+                  // Navigator.pushNamed(context, '/home_screen');
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) =>
+                        HomeScreen(user: FbAuthController().user, isDoctor: isDoctor),
+                  ));
                 },
                 leading: const Icon(
                   Icons.home,
@@ -79,23 +84,26 @@ class ChatsPage extends StatelessWidget {
                   ),
                 ),
               ),
-              ListTile(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const ProfileScreen(),
+              Visibility(
+                visible: !isDoctor,
+                child: ListTile(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => ProfileScreen(),
+                      ),
+                    );
+                  },
+                  leading: const Icon(
+                    Icons.person,
+                    color: Color(0XFF415380),
+                  ),
+                  title: const Text(
+                    'My Profile',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.black,
                     ),
-                  );
-                },
-                leading: const Icon(
-                  Icons.person,
-                  color: Color(0XFF415380),
-                ),
-                title: const Text(
-                  'My Profile',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.black,
                   ),
                 ),
               ),
@@ -134,7 +142,7 @@ class ChatsPage extends StatelessWidget {
               ListTile(
                 onTap: () async {
                   await FbAuthController().signOut();
-                  Navigator.pushReplacementNamed(context, '/login_screen');
+                  Navigator.pushReplacementNamed(context, '/guard_screen');
                 },
                 leading: const Icon(
                   Icons.logout,
@@ -171,7 +179,7 @@ class ChatsPage extends StatelessWidget {
                     } else {
                       return Column(
                         children: [
-                          ChatBodyWidget(users: users,isDoctor:isDoctor)
+                          ChatBodyWidget(users: users, isDoctor: isDoctor)
                         ],
                       );
                     }

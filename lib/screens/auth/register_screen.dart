@@ -75,7 +75,7 @@ class _RegisterScreenState extends State<RegisterScreen> with Helpers {
           children: [
             const Padding(
               padding: EdgeInsets.only(
-                left: 40,
+                left: 60,
                 top: 20,
               ),
               child: Text(
@@ -87,7 +87,7 @@ class _RegisterScreenState extends State<RegisterScreen> with Helpers {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 20, left: 40),
+              margin: const EdgeInsets.only(top: 20, left: 60),
               width: 300,
               child: TextField(
                 keyboardType: TextInputType.name,
@@ -115,7 +115,7 @@ class _RegisterScreenState extends State<RegisterScreen> with Helpers {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 20, left: 40),
+              margin: const EdgeInsets.only(top: 20, left: 60),
               width: 300,
               child: TextField(
                 controller: _ageTextController,
@@ -142,7 +142,7 @@ class _RegisterScreenState extends State<RegisterScreen> with Helpers {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 20, left: 40),
+              margin: const EdgeInsets.only(top: 20, left: 60),
               width: 300,
               child: TextField(
                 controller: _heightTextController,
@@ -169,7 +169,7 @@ class _RegisterScreenState extends State<RegisterScreen> with Helpers {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 20, left: 40),
+              margin: const EdgeInsets.only(top: 20, left: 60),
               width: 300,
               child: TextField(
                 controller: _weightTextController,
@@ -196,7 +196,7 @@ class _RegisterScreenState extends State<RegisterScreen> with Helpers {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 20, left: 40),
+              margin: const EdgeInsets.only(top: 20, left: 60),
               width: 300,
               child: TextField(
                 keyboardType: TextInputType.emailAddress,
@@ -224,7 +224,7 @@ class _RegisterScreenState extends State<RegisterScreen> with Helpers {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 20, left: 40),
+              margin: const EdgeInsets.only(top: 20, left: 60),
               width: 300,
               child: TextField(
                 controller: _passwordTextController,
@@ -252,7 +252,7 @@ class _RegisterScreenState extends State<RegisterScreen> with Helpers {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 39, left: 40),
+              margin: const EdgeInsets.only(top: 39, left: 60),
               width: 300,
               height: 53,
               child: ElevatedButton(

@@ -1,5 +1,7 @@
 import 'package:grad_project/screens/app/chat_page.dart';
 import 'package:flutter/material.dart';
+import 'package:grad_project/screens/app/profile_screen.dart';
+import 'package:grad_project/screens/app/user_profile_screen.dart';
 
 import '../models/chat_user.dart';
 
@@ -8,7 +10,7 @@ class ChatBodyWidget extends StatelessWidget {
   final List<ChatUser> users;
   bool isDoctor;
 
-   ChatBodyWidget({
+  ChatBodyWidget({
     required this.users,
     required this.isDoctor,
     Key? key,
@@ -39,7 +41,8 @@ class ChatBodyWidget extends StatelessWidget {
               child: ListTile(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ChatPage(user: user,isDoctor: isDoctor),
+                    builder: (context) =>
+                        ChatPage(user: user, isDoctor: isDoctor),
                   ));
                 },
                 leading: const CircleAvatar(

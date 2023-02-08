@@ -39,7 +39,7 @@ class _GuardScreenState extends State<GuardScreen> {
 
               GestureDetector(
                 onTap: () async {
-                  await Navigator.of(context).pushReplacement(
+                  await Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => LoginScreen(
                         isUser: true,
@@ -77,7 +77,7 @@ class _GuardScreenState extends State<GuardScreen> {
               ),
               GestureDetector(
                 onTap: () async {
-                  await Navigator.of(context).pushReplacement(
+                  await Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => LoginScreen(
                         isUser: false,

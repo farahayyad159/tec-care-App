@@ -17,7 +17,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> with Helpers {
-  bool _isSigningIn = false;
+  // bool _isSigningIn = false;
 
   String? _emailError;
   String? _passwordError;
@@ -53,6 +53,13 @@ class _LoginScreenState extends State<LoginScreen> with Helpers {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: Color(0xff415380),
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -64,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> with Helpers {
               height: 10,
             ),
             const Padding(
-              padding: EdgeInsets.only(left: 40),
+              padding: EdgeInsets.only(left: 60),
               child: Text(
                 "Login",
                 style: TextStyle(
@@ -74,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> with Helpers {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 39, left: 40),
+              margin: const EdgeInsets.only(top: 39, left: 60),
               width: 300,
               child: TextField(
                 controller: _emailTextController,
@@ -103,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> with Helpers {
             Container(
               margin: const EdgeInsets.only(
                 top: 39,
-                left: 40,
+                left: 60,
               ),
               width: 300,
               child: TextField(
@@ -132,7 +139,7 @@ class _LoginScreenState extends State<LoginScreen> with Helpers {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 0, left: 140),
+              margin: const EdgeInsets.only(top: 0, left: 160),
               width: 300,
               child: TextButton(
                 onPressed: () =>
@@ -141,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen> with Helpers {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 20, left: 40),
+              margin: const EdgeInsets.only(top: 20, left: 60),
               width: 300,
               height: 53,
               child: ElevatedButton(
@@ -178,10 +185,9 @@ class _LoginScreenState extends State<LoginScreen> with Helpers {
             Visibility(
               visible: widget.isUser,
               child: GestureDetector(
-                onTap: () {
-                },
+                onTap: () {},
                 child: Container(
-                  margin: const EdgeInsets.only(top: 39, left: 40),
+                  margin: const EdgeInsets.only(top: 39, left: 60),
                   width: 300,
                   height: 53,
                   padding: const EdgeInsets.only(
@@ -250,23 +256,57 @@ class _LoginScreenState extends State<LoginScreen> with Helpers {
     if (checkData()) login();
   }
 
+  Future<bool> isDoctor() async {
+    return await FbFireStoreController()
+        .doesDoctorExist(_emailTextController.text);
+  }
+
   Future<void> login() async {
-    // print("Here ======>");
     FirebaseResponse response = await FbAuthController().signIn(
         email: _emailTextController.text,
         password: _passwordTextController.text);
-    // print("Herrrre ---->");
-    // print(response.message);
     if (response.success) {
-      bool _isDoctor = await FbFireStoreController().doesDoctorExist(_emailTextController.text);
+      bool _isDoctor = await FbFireStoreController()
+          .doesDoctorExist(_emailTextController.text);
+      print('====>' + _isDoctor.toString());
+      if (widget.isUser == false) {
+        if (_isDoctor) {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => HomeScreen(
+                  user: FbAuthController().user, isDoctor: _isDoctor),
+            ),
+          );
+        } else {
+          FbAuthController().signOut();
+          showSnackBar(
+              context: context,
+              message: "Sorry! You are not authorized to sign in as a doctor.",
+              error: true);
+        }
+      } else {
+        if (_isDoctor) {
+          FbAuthController().signOut();
+          showSnackBar(
+              context: context,
+              message: "Sorry! Your email is a doctor's email.",
+              error: true);
+        } else {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => HomeScreen(
+                  user: FbAuthController().user, isDoctor: _isDoctor),
+            ),
+          );
+        }
+      }
       // print("isDoctor====>" + _isDoctor.toString());
-      // print(response.message);
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => HomeScreen(user: FbAuthController().user, isDoctor: _isDoctor),
-        ),
-      );
-      showSnackBar(context: context, message: response.message);
+      // Navigator.of(context).pushReplacement(
+      //   MaterialPageRoute(
+      //     builder: (context) => HomeScreen(user: FbAuthController().user, isDoctor: _isDoctor),
+      //   ),
+      // );
+      // showSnackBar(context: context, message: response.message);
       // Navigator.pop(context);
     } else {
       showSnackBar(
@@ -275,8 +315,6 @@ class _LoginScreenState extends State<LoginScreen> with Helpers {
           error: !response.success);
     }
   }
-
-
 
   bool checkData() {
     if (_emailTextController.text.isNotEmpty &&

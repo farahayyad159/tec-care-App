@@ -7,14 +7,15 @@ import 'package:grad_project/controllers/fb_auth_controller.dart';
 import '../utils.dart';
 
 class FirebaseApi {
-
   static Stream<List<ChatUser>> getUsers(bool isDoctor) {
-  User user = FbAuthController().user;
+    User user = FbAuthController().user;
 
     print({user});
     if (isDoctor) {
       return FirebaseFirestore.instance
           .collection('users')
+          .where('lastMessageTime', isNotEqualTo: null)
+          .orderBy('lastMessageTime',descending: true)
           .snapshots()
           .transform(Utils.transformer(ChatUser.fromJson));
     } else {
@@ -26,17 +27,16 @@ class FirebaseApi {
   }
 
   static Future uploadMessage(bool isDoctor, String id, String message) async {
-      User user = FbAuthController().user;
-     final newMessage = Message(
-        id: user.uid,
-        name: user.displayName!,
-        message: message,
-        createdAt: DateTime.now(),
-      );
+    User user = FbAuthController().user;
+    final newMessage = Message(
+      id: user.uid,
+      name: user.displayName!,
+      message: message,
+      createdAt: DateTime.now(),
+    );
     if (isDoctor) {
       final refMessages =
           FirebaseFirestore.instance.collection('chats/$id/messages');
-
 
       await refMessages.add(newMessage.toJson());
 
@@ -57,7 +57,7 @@ class FirebaseApi {
   }
 
   static Stream<List<Message>> getMessages(bool isDoctor, String id) {
-          User user = FbAuthController().user;
+    User user = FbAuthController().user;
     if (isDoctor) {
       return FirebaseFirestore.instance
           .collection('chats/$id/messages')
@@ -65,7 +65,6 @@ class FirebaseApi {
           .snapshots()
           .transform(Utils.transformer(Message.fromJson));
     } else {
-
       return FirebaseFirestore.instance
           .collection('chats/${user.uid}/messages')
           .orderBy(MessageField.createdAt, descending: true)

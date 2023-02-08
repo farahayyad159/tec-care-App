@@ -25,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
           // print(FbFireStoreController().readUser(user!.uid).);
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: (context) => HomeScreen(user: FbAuthController().user, isDoctor: _isDoctor.toString() == 'true',),
+              builder: (context) => HomeScreen(user: FbAuthController().user, isDoctor: Future.value(_isDoctor).toString() == 'true'),
             ),
           );
         } else {

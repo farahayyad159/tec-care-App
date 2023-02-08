@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:grad_project/screens/app/contact_screen.dart';
 import 'package:grad_project/screens/app/edit_profile_screen.dart';
+import 'package:grad_project/screens/app/home_screen.dart';
 import 'package:grad_project/screens/app/profile_screen.dart';
 import 'package:grad_project/screens/app/references_screen.dart';
 import 'package:grad_project/screens/auth/forget_password_screen.dart';
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
         '/edit_profile_screen': (context) => EditProfileScreen(),
         '/contact_screen': (context) => const ContactScreen(),
         '/guard_screen': (context) => const GuardScreen(),
+        // '/home_screen': (context) => HomeScreen(user: null, isDoctor: false,),
       },
       initialRoute: '/splash_screen',
     );
