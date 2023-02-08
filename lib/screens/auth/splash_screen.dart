@@ -11,9 +11,14 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  bool isDoctor=false;
+  void changeVal() async{
+    isDoctor = await FbFireStoreController().doesDoctorExist(FbAuthController().user.email!);
+  }
   @override
   void initState() {
     // TODO: implement initState
+    changeVal();
     super.initState();
     Future.delayed(
       const Duration(milliseconds: 1500),
@@ -21,11 +26,12 @@ class _SplashScreenState extends State<SplashScreen> {
         bool isLoggedIn = FbAuthController().loggedIn;
         if (isLoggedIn) {
           // User user = FbAuthController().user;
-          Future<bool> _isDoctor = FbFireStoreController().doesDoctorExist(FbAuthController().user.email!);
           // print(FbFireStoreController().readUser(user!.uid).);
+          print('0000000000000000000000000'+isDoctor.toString());
+          print('========++++++++'+isDoctor.toString());
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: (context) => HomeScreen(user: FbAuthController().user, isDoctor: Future.value(_isDoctor).toString() == 'true'),
+              builder: (context) => HomeScreen(user: FbAuthController().user, isDoctor: isDoctor),
             ),
           );
         } else {

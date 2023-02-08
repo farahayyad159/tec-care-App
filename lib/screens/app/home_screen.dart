@@ -439,7 +439,14 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         );
                       } else {
-                        return const Center();
+                        return const Center(
+                          // child: Text('NO DATA',
+                          //   style: TextStyle(
+                          //     color: Colors.black45,
+                          //     fontSize: 45,
+                          //   ),
+                          // ),
+                        );
                       }
                     },
                   );
